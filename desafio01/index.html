@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aula 01 - IA e o Mercado de Trabalho</title>
+    <link rel="preconnect" href="https://googleapis.com" />
+    <link rel="preconnect" href="https://gstatic.com" crossorigin />
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg-outer: #232329;
+            --bg-card-main: #151934;
+            --bg-card-gradient: radial-gradient(circle at 50% 35%, #1c2247 0%, #12152c 100%);
+            --surface-glass: rgba(255, 255, 255, 0.04);
+            --surface-glass-hover: rgba(255, 255, 255, 0.07);
+            --border-subtle: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --accent-purple: #5b46e8;
+            --accent-purple-hover: #6d59f0;
+            --accent-cyan: #38bdf8;
+            --btn-muted: #3f3f46;
+            --btn-muted-hover: #52525b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-outer);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .presentation-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            height: 100vh;
+            padding: 24px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .slide-container {
+            flex: 1;
+            background: var(--bg-card-gradient);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.55);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 56px;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeSlide 0.35s ease forwards;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Capa e Conclusão */
+        .slide-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .tag-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 999px;
+            background: rgba(91, 70, 232, 0.2);
+            border: 1px solid rgba(129, 140, 248, 0.35);
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 3.6vw, 3rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 32px;
+        }
+
+        .hero-visual {
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .hero-svg {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
+        }
+
+        .final-quote {
+            font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 18px;
+            background: linear-gradient(90deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Cabeçalhos Internos */
+        .slide-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(91, 70, 232, 0.2);
+            border: 1px solid rgba(91, 70, 232, 0.45);
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .icon-box svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .large-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 20px;
+        }
+
+        .large-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .slide-kicker {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--accent-cyan);
+            margin-bottom: 4px;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .lead-text {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Grids e Cartões */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--surface-glass);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .card:hover {
+            background: var(--surface-glass-hover);
+        }
+
+        .highlight-card {
+            border-color: rgba(56, 189, 248, 0.35);
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        .card-number {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            letter-spacing: 0.08em;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            font-size: 0.98rem;
+            line-height: 1.55;
+            color: var(--text-secondary);
+        }
+
+        .card strong {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Mitos vs Realidade */
+        .stack-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .badge-danger,
+        .badge-success {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .badge-danger {
+            background: rgba(244, 63, 94, 0.15);
+            color: #fb7185;
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+
+        .badge-success {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        /* Lista do Desafio */
+        .challenge-box {
+            padding: 32px 36px;
+        }
+
+        .clean-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .clean-list li {
+            font-size: 1.08rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            padding-left: 22px;
+            position: relative;
+        }
+
+        .clean-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+        }
+
+        .clean-list strong {
+            color: var(--text-primary);
+        }
+
+        /* Barra de Navegação Inferior */
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding-bottom: 4px;
+        }
+
+        .slide-counter {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            min-width: 110px;
+            text-align: center;
+        }
+
+        .nav-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-family: inherit;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
+        }
+
+        .nav-btn:active:not(:disabled) {
+            transform: scale(0.97);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background-color: var(--btn-muted);
+            color: #e4e4e7;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: var(--btn-muted-hover);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-purple);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--accent-purple-hover);
+        }
+
+        /* Responsividade */
+        @media (max-width: 900px) {
+            .presentation-wrapper {
+                padding: 16px;
+            }
+
+            .slide-container {
+                padding: 28px 24px;
+            }
+
+            .grid-2,
+            .grid-3,
+            .comparison-row {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="presentation-wrapper">
+        <div class="slide-container">
+
+            <!-- SLIDE 1: CAPA -->
+            <section class="slide active" data-slide="1">
+                <div class="slide-center">
+                    <span class="tag-badge">Aula 01 - Módulo 01</span>
+                    <h1 class="hero-title">IA e o Mercado de Trabalho: O Desafio Full Stack</h1>
+                    <p class="hero-subtitle">Construindo um projeto do zero com Inteligência Artificial</p>
+                    <div class="hero-visual">
+                        <svg viewBox="0 0 240 120" fill="none" xmlns="http://w3.org" class="hero-svg">
+                            <rect x="20" y="15" width="200" height="90" rx="12" fill="rgba(99, 102, 241, 0.12)"
+                                stroke="rgba(129, 140, 248, 0.4)" stroke-width="1.5" />
+                            <circle cx="40" cy="30" r="3" fill="#6366F1" />
+                            <circle cx="50" cy="30" r="3" fill="#8B5CF6" />
+                            <circle cx="60" cy="30" r="3" fill="#38BDF8" />
+                            <path d="M55 62L70 72L55 82" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <line x1="78" y1="82" x2="102" y2="82" stroke="#818CF8" stroke-width="2.5"
+                                stroke-linecap="round" />
+                            <rect x="125" y="48" width="75" height="42" rx="8" fill="rgba(56, 189, 248, 0.1)"
+                                stroke="#38BDF8" stroke-width="1.5" />
+                            <path d="M150 69L158 77L175 60" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 2: IA NO MERCADO DE TRABALHO -->
+            <section class="slide" data-slide="2">
+                <div class="slide-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="slide-kicker">Cenário Atual</span>
+                        <h2>IA no Mercado de Trabalho</h2>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>Piloto vs. Piloto Automático</h3>
+                        <p><strong>Velocidade:</strong> A IA escreve linhas de código em segundos, mas não entende o
+                            objetivo real do negócio.</p>
+                        <p><strong>Direção:</strong> O piloto automático mantém o voo estável, mas exige um comandante
+                            humano para definir a rota e evitar colisões.</p>
+                    </div>
+                    <div class="card highlight-card">
+                        <h3>O Papel do Desenvolvedor</h3>
+                        <p><strong>Senso Crítico:</strong> O mercado não busca apenas quem digita código, mas quem
+                            resolve problemas reais.</p>
+                        <p><strong>Responsabilidade:</strong> A IA sugere caminhos, mas é você quem valida, corrige e
+                            assume o resultado final.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: OS 3 PILARES -->
+            <section class="slide" data-slide="3">
+                <div class="slide-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                            <polyline points="2 17 12 22 22 17" />
+                            <polyline points="2 12 12 17 22 12" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="slide-kicker">Fundamentos Humanos</span>
+                        <h2>Os 3 Pilares que a IA Não Faz por Você</h2>
+                    </div>
+                </div>
+                <p class="lead-text">Pedir "crie um sistema pronto" falha porque a ferramenta depende da sua estrutura
+                    mental:</p>
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-number">01</div>
+                        <h3>Planejamento</h3>
+                        <p><strong>Visão antes do código:</strong> Definir o que o sistema faz, quais telas existem e
+                            qual problema ele resolve antes de abrir o chat.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-number">02</div>
+                        <h3>Comunicação</h3>
+                        <p><strong>Clareza no pedido:</strong> Explicar o contexto e as regras com precisão para evitar
+                            respostas genéricas ou incompletas.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-number">03</div>
+                        <h3>Organização</h3>
+                        <p><strong>Montagem lógica:</strong> Estruturar pastas, conectar arquivos e unir partes
+                            separadas sem quebrar o funcionamento.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: MITOS VS REALIDADE -->
+            <section class="slide" data-slide="4">
+                <div class="slide-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                            <line x1="12" y1="9" x2="12" y2="13" />
+                            <line x1="12" y1="17" x2="12.01" y2="17" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="slide-kicker">Expectativa vs. Prática</span>
+                        <h2>Mitos vs. Realidade</h2>
+                    </div>
+                </div>
+                <div class="stack-list">
+                    <div class="card comparison-row">
+                        <div class="myth">
+                            <span class="badge-danger">Mito 1</span>
+                            <p>"Basta um comando mágico para ter um sistema completo."</p>
+                        </div>
+                        <div class="reality">
+                            <span class="badge-success">Realidade</span>
+                            <p><strong>Iteração constante:</strong> Criar algo funcional exige dezenas de ajustes,
+                                refinamentos e testes manuais.</p>
+                        </div>
+                    </div>
+                    <div class="card comparison-row">
+                        <div class="myth">
+                            <span class="badge-danger">Mito 2</span>
+                            <p>"Não preciso entender de código se a IA escreve tudo."</p>
+                        </div>
+                        <div class="reality">
+                            <span class="badge-success">Realidade</span>
+                            <p><strong>Diagnóstico técnico:</strong> Sem base de programação, você não sabe avaliar a
+                                qualidade nem corrigir onde a IA errou.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: 3 FERRAMENTAS DE IA -->
+            <section class="slide" data-slide="5">
+                <div class="slide-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+                            <rect x="9" y="9" width="6" height="6" />
+                            <line x1="9" y1="1" x2="9" y2="4" />
+                            <line x1="15" y1="1" x2="15" y2="4" />
+                            <line x1="9" y1="20" x2="9" y2="23" />
+                            <line x1="15" y1="20" x2="15" y2="23" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="slide-kicker">Escolha seu Copiloto</span>
+                        <h2>3 Ferramentas de IA para o Desafio</h2>
+                    </div>
+                </div>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>ChatGPT</h3>
+                        <p><strong>Versatilidade:</strong> Ótimo para estruturar ideias iniciais, tirar dúvidas rápidas
+                            e gerar blocos de código variados.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Claude</h3>
+                        <p><strong>Contexto e Código:</strong> Destaca-se na leitura de arquivos longos e na organização
+                            limpa de interfaces e lógica.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Google Gemini</h3>
+                        <p><strong>Agilidade e Pesquisa:</strong> Forte capacidade de raciocínio e integração rápida
+                            para explorar soluções alternativas.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: O GRANDE DESAFIO -->
+            <section class="slide" data-slide="6">
+                <div class="slide-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="slide-kicker">Atividade Prática</span>
+                        <h2>O Grande Desafio da Aula</h2>
+                    </div>
+                </div>
+                <div class="card challenge-box">
+                    <ul class="clean-list">
+                        <li><strong>Missão:</strong> Construir uma aplicação web funcional usando 100% de Inteligência
+                            Artificial.</li>
+                        <li><strong>Ponto de Partida:</strong> Utilize apenas o conhecimento técnico que você já possui
+                            hoje, sem tutoriais prontos.</li>
+                        <li><strong>Objetivo Real:</strong> Testar os limites da ferramenta na prática e descobrir onde
+                            o projeto trava sem intervenção humana.</li>
+                        <li><strong>Registro:</strong> Anote cada erro, bloqueio ou dificuldade que encontrar pelo
+                            caminho.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: DICAS DE SOBREVIVÊNCIA -->
+            <!-- <section class="slide" data-slide="7">
+                <div class="slide-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="slide-kicker">Estratégia em Campo</span>
+                        <h2>Dicas de Sobrevivência para o Desafio</h2>
+                    </div>
+                </div>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>Quebre o Problema</h3>
+                        <p><strong>Passo a passo:</strong> Não peça o sistema inteiro de uma vez. Construa e valide uma
+                            parte pequena de cada vez.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Teste Tudo</h3>
+                        <p><strong>Validação real:</strong> Nunca assuma que o código gerado funciona de primeira.
+                            Execute e clique em cada função.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Mapeie as Lacunas</h3>
+                        <p><strong>Diário de bordo:</strong> Anote as dúvidas técnicas que surgirem para discutirmos
+                            juntos no encerramento da aula.</p>
+                    </div>
+                </div>
+            </section> -->
+
+            <!-- SLIDE 8: CONCLUSÃO / MÃOS À OBRA -->
+            <section class="slide" data-slide="8">
+                <div class="slide-center">
+                    <div class="icon-box large-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                            <path
+                                d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+                        </svg>
+                    </div>
+                    <span class="tag-badge">Mãos à Obra!</span>
+                    <h1 class="final-quote">"A IA é o motor, mas você é o volante.<br>Bom desafio!"</h1>
+                    <p class="hero-subtitle">Escolha sua ferramenta, planeje os primeiros passos e comece a construir.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+
+        <nav class="nav-bar" aria-label="Navegação de slides">
+            <button id="prevBtn" class="nav-btn btn-secondary" type="button">← Anterior</button>
+            <span id="slideCounter" class="slide-counter">Slide 1 de 8</span>
+            <button id="nextBtn" class="nav-btn btn-primary" type="button">Próximo →</button>
+        </nav>
+    </main>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        function updatePresentation() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+
+            slideCounter.textContent = `Slide ${currentSlide + 1} de ${totalSlides}`;
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function goNext() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updatePresentation();
+            }
+        }
+
+        function goPrev() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updatePresentation();
+            }
+        }
+
+        nextBtn.addEventListener('click', goNext);
+        prevBtn.addEventListener('click', goPrev);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                goNext();
+            } else if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                goPrev();
+            }
+        });
+
+        updatePresentation();
+    </script>
+</body>
+
+</html>
