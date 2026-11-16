@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Links</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #181a20;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            background: linear-gradient(135deg, #0d1626 0%, #16113a 100%);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px 32px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 6px;
+            color: #ffffff;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Links */
+        .links-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .links-list a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 18px;
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            text-decoration: none;
+            color: #e2e8f0;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.25s ease;
+        }
+
+        .links-list a::after {
+            content: "→";
+            color: #6b7280;
+            font-weight: 600;
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+
+        .links-list a:hover {
+            background-color: #5833e6;
+            border-color: #5833e6;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(88, 51, 230, 0.35);
+        }
+
+        .links-list a:hover::after {
+            color: #ffffff;
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Full Stack Slide's</h1>
+        <p class="subtitle">Acesso rápido!</p>
+
+        <ul class="links-list">
+            <li>
+                <a href="/Intro/index.html" rel="noopener noreferrer">Introdução</a>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>
